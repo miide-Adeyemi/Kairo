@@ -44,10 +44,16 @@ the short version and the to-do list.
 
 ## To do
 1. **Owner's full test** of the installed 4.0.0.
-2. **First CI run**: `.github/workflows/build.yml` was rewritten for Rust and
-   has never run. Trigger it manually on this branch (Actions → Build KAIRO →
-   Run workflow) — manual runs only build and keep the installers, no
-   release. It's the only check Windows gets (owner has no Windows machine).
+2. ~~First CI run~~ — done 2026-10-13 (run 38345883921): macOS universal,
+   Windows (.msi + setup .exe) and Linux (.deb, .rpm) all build, with update
+   signatures. Linking notes, in `/.cargo/config.toml`: sherpa-onnx ships
+   Windows libraries for the static C runtime only, so Windows builds use
+   `+crt-static` (no VC++ redistributable needed); on Windows and Intel Macs
+   ort links no ONNX Runtime of its own and uses sherpa-onnx's (1.28.2) —
+   ort's Windows build is for the DLL runtime and it has none for Intel.
+   Bump ort and sherpa-onnx together and keep their ONNX Runtime versions
+   compatible. The Pages job fails on branches other than main (environment
+   rule) — expected.
 3. **Release**: tag `v4.0.0` (draft release), publish it **as Latest** —
    "Offline STT model v1" is currently marked Latest, so the updater's
    `releases/latest/download/latest.json` finds nothing.
