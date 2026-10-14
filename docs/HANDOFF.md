@@ -62,16 +62,14 @@ the short version and the to-do list.
    `releases/latest/download/latest.json` finds nothing.
 4. After the full test: remove `server/` (the Node app) and
    `npm run server:node`; move the eval fixtures out of `server/eval`.
-5. When sherpa-onnx ships a release after 1.13.8 (k2-fsa/sherpa-onnx#3895):
-   bump it and turn on beam search (`Decoding::default`). Measured 2026-10-13
-   on master built from source: 65/81 found, 2 wrong (greedy then: 64/4),
-   6x real time vs greedy 7x (+27% CPU), same memory. Re-measure beam together
-   with the blank penalty. **1.13.8 exits the process if asked for beam
-   search** — the app decodes greedily until then. Keep the book-name hotwords
-   off: `hotwords()` hands sherpa word pieces, but it needs
-   `modeling_unit = "bpe"` + a `bpe_vocab` and plain names; done that way at
-   1.5 they found one more verse but inserted ~3 false book names for each one
-   fixed ("Matthew three times" became a wrong send).
+5. Beam search: **leave it off**, even once sherpa-onnx releases it for NeMo
+   streaming models (k2-fsa/sherpa-onnx#3895; 1.13.8 exits if asked for it).
+   Measured 2026-10-14 on master built from source, with the blank penalty:
+   62/81 found, 3 wrong — worse than the blank penalty alone (65/81, 1 wrong);
+   alone (greedy-era) it was 65/81, 2 wrong. Book-name hotwords also stay off:
+   `hotwords()` hands sherpa word pieces, but it needs `modeling_unit = "bpe"`
+   + a `bpe_vocab` and plain names; done that way at 1.5 they found one more
+   verse but inserted ~3 false book names per fix ("Matthew three times").
 6. Possible later: a second, non-streaming pass for offline (Parakeet) —
    an optional download; ask the owner first. Tried and not kept (2026-10-13):
    restarting the stream at every pause (same-word 78-80% vs 86-88%), and a
