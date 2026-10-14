@@ -24,7 +24,7 @@ the short version and the to-do list.
 - Bundle data (models + verse index): `--bin bundle-data` — also the
   `beforeBuildCommand`. Mac build: `npx @tauri-apps/cli@latest build --bundles app,dmg`.
 
-## Numbers (recorded sermons, answer keys in `server/eval/fixtures`)
+## Numbers (recorded sermons, answer keys in `eval/fixtures`)
 - Deepgram, with meaning models: 226/251 found (Node 216), Possible Matches
   ~14/hour.
 - Scores as of 2026-10-14 (plain replay, no meaning models; the scorer now
@@ -69,7 +69,7 @@ the short version and the to-do list.
    "Offline STT model v1" is currently marked Latest, so the updater's
    `releases/latest/download/latest.json` finds nothing.
 4. After the full test: remove `server/` (the Node app) and
-   `npm run server:node`; move the eval fixtures out of `server/eval`.
+   `npm run server:node`; move the eval fixtures out of `eval`.
 5. Beam search: **leave it off**, even once sherpa-onnx releases it for NeMo
    streaming models (k2-fsa/sherpa-onnx#3895; 1.13.8 exits if asked for it).
    Measured 2026-10-14 on master built from source, with the blank penalty:
