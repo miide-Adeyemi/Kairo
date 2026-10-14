@@ -27,11 +27,19 @@ the short version and the to-do list.
 ## Numbers (recorded sermons, answer keys in `server/eval/fixtures`)
 - Deepgram, with meaning models: 226/251 found (Node 216), Possible Matches
   ~14/hour.
-- Deepgram, plain replay (no meaning models), 2026-10-13: 222/255 found, 6
-  wrong (was 218/8 before the spoken-correction, range and split-citation fixes).
-- Offline vs Deepgram on the two sermons with audio: offline 65/81, 1 wrong
-  with the blank penalty (1.0, on by default since 2026-10-14; was 64/81, 4
-  wrong); Deepgram 65/81, 0 wrong. Drops of 4+ words 39 -> 23.
+- Scores as of 2026-10-14 (plain replay, no meaning models; the scorer now
+  reads range entries — `verseStart`/`verseEnd` — and four duplicate key
+  entries were removed, so totals moved from 255 to 258):
+  - Deepgram, dev sermons: 223/258 found, 6 wrong (218/255, 8 wrong before
+    the spoken-correction, range, split-citation, sibling-book, finished-
+    range and twin-verse fixes).
+  - Held-out (checked, never tuned): 63/76, 4 wrong — unchanged by those
+    fixes. Node scored 25/30 on shiloh2025-love-mystery vs Rust 23/30; that
+    gap predates them and hasn't been examined (it's held out).
+  - Offline (blank penalty 1.0) vs Deepgram on the two sermons with audio:
+    64/81, 1 wrong vs 66/81, 0 wrong. Drops of 4+ words 39 -> 23.
+  - Possible Matches can't be promoted by score: even at 0.90+ there are 9
+    wrong offers per 29 right ones.
 
 ## Constraints from the owner
 - Nothing pushed or merged to **main** without them; commit freely on the
